@@ -15,8 +15,8 @@ export class SpotifyAuthController {
   }
 
   @Get('callback')
-  async handleCallback(@Query('code') code: string): Promise<AuthData> {
+  async handleCallback(@Query('code') code: string): Promise<string> {
     const tokens = await this.spotifyAuthService.handleCallback(code);
-    return tokens;
+    return tokens.access_token;
   }
 }

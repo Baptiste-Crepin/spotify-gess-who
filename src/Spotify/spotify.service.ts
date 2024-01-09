@@ -7,7 +7,7 @@ export class SpotifyService {
     const endpoint = `https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=${limit}`;
     const res = await axios
       .get(endpoint, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `${token}` },
       })
       .catch((error) => {
         if (error.response.status === HttpStatus.FORBIDDEN) {

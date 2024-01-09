@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Headers, Query } from '@nestjs/common';
 import { SpotifyService } from './spotify.service';
 import { ApiTags } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
@@ -11,11 +11,12 @@ export class SpotifyController {
 
   @Get('TopTracks/')
   async connect(
-    @Query('token') token: string,
-    // @Query('limit') limit: number = 10,
+    @Headers('authorization') token: string,
+    // @Query('token') token: string,
+    @Query('limit') limit: number = 10,
   ): Promise<string[]> {
     const output = [];
-    const topTracks = await this.spotifyService.getTopTracks(token);
+    const topTracks = await this.spotifyService.getTopTracks(token, limit);
     topTracks.map(({ name, artists }) =>
       output.push(
         `${name} by ${artists.map((artist) => artist.name).join(', ')}`,
