@@ -9,10 +9,24 @@ dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const redirectUri = process.env.SPOTIFY_URL_CALLBACK;
   const config = new DocumentBuilder()
     .setTitle('Spotify api')
     .setDescription('A backend-api for spotify guess who game')
     .setVersion('1.0')
+    .addOAuth2({
+      type: 'oauth2',
+      flows: {
+        authorizationCode: {
+          authorizationUrl: `https://accounts.spotify.com/authorize?redirect_uri=${redirectUri}`,
+          tokenUrl: 'https://accounts.spotify.com/api/token',
+          scopes: {
+            'user-top-read': 'Write access to the Spotify API',
+          },
+        },
+      },
+    })
+
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

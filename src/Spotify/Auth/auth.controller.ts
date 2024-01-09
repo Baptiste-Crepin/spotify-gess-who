@@ -1,9 +1,6 @@
-import { Controller, Get, Query, Redirect, Res } from '@nestjs/common';
+import { Controller, Get, Query, Redirect } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import * as dotenv from 'dotenv';
-import { SpotifyAuthService } from './auth.service';
-import { Response } from 'express';
-dotenv.config();
+import { AuthData, SpotifyAuthService } from './auth.service';
 
 @ApiTags('Spotify/Auth')
 @Controller('Spotify/Auth')
@@ -18,20 +15,8 @@ export class SpotifyAuthController {
   }
 
   @Get('callback')
-  async handleCallback(
-    @Query('code') code: string,
-    @Res() res: Response,
-  ): Promise<void> {
-    return this.spotifyAuthService.handleCallback(code, res);
-  }
-
-  @Get('callback/success')
-  getCallbackSuccess(): string {
-    return 'Success';
-  }
-
-  @Get('callback/error')
-  getCallbackError(): string {
-    return 'Error';
+  async handleCallback(@Query('code') code: string): Promise<AuthData> {
+    const tokens = await this.spotifyAuthService.handleCallback(code);
+    return tokens;
   }
 }
