@@ -2,7 +2,7 @@
   "name": "spotify-gess-who",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Baptiste Crepin",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -23,7 +23,9 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/platform-socket.io": "^10.3.0",
     "@nestjs/swagger": "^7.1.17",
+    "@nestjs/websockets": "^10.3.0",
     "axios": "^1.6.4",
     "dotenv": "^16.3.1",
     "reflect-metadata": "^0.1.13",

@@ -10,24 +10,12 @@ export class SpotifyService {
         headers: { Authorization: `${token}` },
       })
       .catch((error) => {
-        if (error.response.status === HttpStatus.FORBIDDEN) {
-          throw new HttpException(
-            'Unauthorized token',
-            HttpStatus.UNAUTHORIZED,
-          );
-        }
-        if (error.response.status === HttpStatus.FORBIDDEN) {
-          throw new HttpException(
-            'Wrong scopes selected fot the authorization token',
-            HttpStatus.FORBIDDEN,
-          );
-        }
-        throw new HttpException('Forbidden', HttpStatus.BAD_REQUEST);
+        throw new HttpException(error.response.data, error.response.status);
       });
 
     if (res.status !== HttpStatus.OK) {
       console.error('Error during token request');
-      throw new HttpException('Forbidden', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Bad request', res.status);
     }
 
     const datas = res.data.items as Track[];
