@@ -36,4 +36,9 @@ export class SpotifyController {
 
     return output;
   }
+
+  @Get()
+  async testt(){
+  return 'hello world';
+  } 
 }

@@ -29,7 +29,7 @@ async function bootstrap() {
 
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('spotify/api', app, document);
 
   const corsOptions: CorsOptions = {
     origin: '*', // TODO Update with your front-end URL
